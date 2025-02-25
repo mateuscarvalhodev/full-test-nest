@@ -8,5 +8,5 @@ export class GetClientDto {
   salary: number;
 
   @IsNumber()
-  enterpriseValue: number;
+  enterprisePrice: number;
 }

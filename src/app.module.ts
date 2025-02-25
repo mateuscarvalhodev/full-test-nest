@@ -1,26 +1,24 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './Controllers/app.controller';
-import { ClientController } from './clients/client.controller';
 import { AppService } from './app.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientsModule } from './clients/clients.module';
-
+import { Client } from './clients/entities/client.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: 'postgres',
       port: 5432,
-      password: 'simform',
-      username: 'postgres',
-      entities: [],
-      database: 'pgWithNest',
+      username: 'myuser',
+      password: 'mypassword',
+      database: 'mydatabase',
+      entities: [Client],
       synchronize: true,
-      logging: true,
     }),
-    UserModule,
     ClientsModule,
   ],
-  controllers: [AppController, ClientController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule { }
