@@ -12,7 +12,7 @@ export class ClientController {
       { name: 'Umdois de Oliveira', salary: 6000, enterpriseValue: 150000 },
     ];
   }
-  @Get('hello')
+  @Get('/hello')
   getHello(): string {
     return 'helloWorld';
   }
