@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, ParseIntPipe } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
@@ -13,17 +13,27 @@ export class ClientsController {
   }
 
   @Get()
-  findAll(@Query('userId') query: number) {
+  findAll(@Query('userId', ParseIntPipe) query: number) {
     return this.clientsService.findAll(query);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientsService.update(+id, updateClientDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateClientDto: UpdateClientDto) {
+    return this.clientsService.update(id, updateClientDto);
+  }
+
+  @Patch(':id/addToSelected')
+  addToSelected(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.addToSelected(id);
+  }
+
+  @Patch(':id/removeFromSelected')
+  removeFromSelected(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.removeFromSelected(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.clientsService.remove(id);
   }
 }

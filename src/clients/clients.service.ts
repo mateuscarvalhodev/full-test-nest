@@ -31,7 +31,7 @@ export class ClientsService {
 
   async findAll(userId: number): Promise<Client[]> {
     const user = await this.userRepository.findOneBy({ id: userId })
-    if (!user) {
+    if (!user || !userId) {
       throw new NotFoundException('Não foi encontrado o usuario.')
     }
     return this.clientRepository.find({
@@ -48,8 +48,35 @@ export class ClientsService {
     return client
   }
 
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
+  async update(id: number, updateClientDto: UpdateClientDto) {
+    const client = await this.clientRepository.findOneBy({ id })
+    if (!client) {
+      throw new NotFoundException(`O Cliente com o ID: ${id} não foi encontrado na nossa base de dados. `)
+    }
+    const updatedClient = this.clientRepository.merge(client, updateClientDto);
+    return await this.clientRepository.save(updatedClient);
+  }
+
+  async addToSelected(id: number): Promise<Client> {
+    const client = await this.clientRepository.findOne({ where: { id } });
+    if (!client) {
+      throw new NotFoundException(`O Cliente com o ID: ${id} não foi encontrado na nossa base de dados.`);
+    }
+
+    client.isSelected = true;
+
+    return await this.clientRepository.save(client);
+  }
+
+  async removeFromSelected(id: number): Promise<Client> {
+    const client = await this.clientRepository.findOne({ where: { id } });
+    if (!client) {
+      throw new NotFoundException(`O Cliente com o ID: ${id} não foi encontrado na nossa base de dados.`);
+    }
+
+    client.isSelected = false;
+
+    return await this.clientRepository.save(client);
   }
 
   async remove(id: number): Promise<{ affected?: number | null }> {

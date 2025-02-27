@@ -15,6 +15,9 @@ export class Client {
   @Column({ type: 'float', nullable: false })
   enterprisePrice: number;
 
+  @Column({ type: 'boolean', nullable: false, default: false })
+  isSelected: boolean;
+
   @ManyToOne(() => User, (user) => user.clients, { nullable: false })
   @JoinColumn({ name: 'createdBy' })
   createdBy: User;
