@@ -9,4 +9,7 @@ export class CreateClientDto {
 
   @IsNumber()
   enterprisePrice: number;
+
+  @IsNumber()
+  userId: number;
 }
