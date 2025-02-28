@@ -10,10 +10,10 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Full-test-nest')
+    .setDescription('Documentação da API do full-test-nest')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('Clients')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

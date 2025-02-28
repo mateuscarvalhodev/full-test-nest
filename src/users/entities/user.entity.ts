@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-// Importe a entidade Client
 import { Client } from "src/clients/entities/client.entity"
 
 @Entity('users')
 export class User {
+
   @PrimaryGeneratedColumn()
   id: number;
 

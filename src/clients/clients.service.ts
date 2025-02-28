@@ -40,14 +40,6 @@ export class ClientsService {
     });
   }
 
-  async findOne(id: number): Promise<Client | null> {
-    const client = await this.clientRepository.findOneBy({ id });
-    if (!client) {
-      throw new NotFoundException(`O Cliente com o ID: ${id} não foi encontrado na nossa base de dados. `)
-    }
-    return client
-  }
-
   async update(id: number, updateClientDto: UpdateClientDto) {
     const client = await this.clientRepository.findOneBy({ id })
     if (!client) {
