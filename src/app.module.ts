@@ -4,6 +4,7 @@ import { ClientsModule } from './clients/clients.module';
 import { Client } from './clients/entities/client.entity';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,5 +20,6 @@ import { User } from './users/entities/user.entity';
     ClientsModule,
     UsersModule,
   ],
+
 })
 export class AppModule { }
