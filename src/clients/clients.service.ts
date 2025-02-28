@@ -4,7 +4,7 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { Client } from './entities/client.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { logger } from '../config/winston.config';
 
 @Injectable()
@@ -85,6 +85,7 @@ export class ClientsService {
     }
 
     const updatedClient = this.clientRepository.merge(client, updateClientDto);
+    console.log({ updatedClient, updateClientDto, client })
     const savedClient = await this.clientRepository.save(updatedClient);
 
     logger.info('Cliente atualizado com sucesso', {
