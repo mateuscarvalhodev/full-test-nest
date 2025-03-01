@@ -1,6 +1,6 @@
 ## Descrição
 
-Este é o backend do NomeDoProjeto, construído com Node.js utilizando o framework NestJS e TypeScript. Ele utiliza Docker para facilitar o ambiente de desenvolvimento, Jest para testes unitários, Winston para logging, Postgres como banco de dados e TypeORM como ORM.
+Este é o backend do full-test-nest, construído com Node.js utilizando o framework NestJS e TypeScript. Ele utiliza Docker para facilitar o ambiente de desenvolvimento, Jest para testes unitários, Winston para logging, Postgres como banco de dados e TypeORM como ORM.
 
 ## Tecnologias utilizadas
 
