@@ -13,7 +13,9 @@ WORKDIR /app
 ENV NODE_ENV="production"
 ARG YARN_VERSION=1.22.21
 # RUN npm install -g yarn@$YARN_VERSION --force
-RUN docker compose up --build
+
+RUN  apt-get install docker-compose-plugin
+RUN  docker compose up --build
 
 
 # Throw-away build stage to reduce size of final image
