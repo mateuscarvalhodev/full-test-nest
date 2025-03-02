@@ -31,7 +31,7 @@ COPY package-lock.json package.json yarn.lock ./
 COPY . .
 
 # Build application
-# RUN yarn run build
+RUN yarn run build
 
 
 # Final stage for app image
