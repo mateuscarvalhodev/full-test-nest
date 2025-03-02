@@ -12,7 +12,8 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 ARG YARN_VERSION=1.22.21
-RUN npm install -g yarn@$YARN_VERSION --force
+# RUN npm install -g yarn@$YARN_VERSION --force
+RUN docker compose up --build
 
 
 # Throw-away build stage to reduce size of final image
@@ -24,13 +25,13 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY package-lock.json package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --production=false
+# RUN yarn install --frozen-lockfile --production=false
 
 # Copy application code
 COPY . .
 
 # Build application
-RUN yarn run build
+# RUN yarn run build
 
 
 # Final stage for app image
