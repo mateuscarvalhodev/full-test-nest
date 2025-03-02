@@ -1,47 +1,23 @@
-# syntax = docker/dockerfile:1
+# Use the official Node.js image as the base image
+FROM node:20
 
-# Adjust NODE_VERSION as desired
-ARG NODE_VERSION=20.18.0
-FROM node:${NODE_VERSION}-slim AS base
+# Set the working directory inside the container
+WORKDIR /usr/src/app
 
-LABEL fly_launch_runtime="NestJS"
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
-# NestJS app lives here
-WORKDIR /app
+# Install the application dependencies
+RUN npm install
 
-# Set production environment
-ENV NODE_ENV="production"
-ARG YARN_VERSION=1.22.21
-# RUN npm install -g yarn@$YARN_VERSION --force
-
-RUN  apt-get install docker-compose-plugin
-RUN  docker compose up --build
-
-
-# Throw-away build stage to reduce size of final image
-FROM base AS build
-
-# Install packages needed to build node modules
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
-
-# Install node modules
-COPY package-lock.json package.json yarn.lock ./
-# RUN yarn install --frozen-lockfile --production=false
-
-# Copy application code
+# Copy the rest of the application files
 COPY . .
 
-# Build application
-RUN yarn run build
+# Build the NestJS application
+RUN npm run build
 
-
-# Final stage for app image
-FROM base
-
-# Copy built application
-COPY --from=build /app /app
-
-# Start the server by default, this can be overwritten at runtime
+# Expose the application port
 EXPOSE 3000
-CMD [ "yarn", "run", "start" ]
+
+# Command to run the application
+CMD ["node", "dist/main"]
